@@ -18,7 +18,7 @@ library(tidyverse)
 library(knitr)
 ```
 
-# Aim
+## Aim
 This project explores the historical population of horses in Canada between 1906 and 1972 for each Province.
 ## Data
 ```{r load data, include = FALSE}
@@ -31,23 +31,8 @@ horse_pop$Value <- horse_pop$Value * 1000
 Horse population data were sourced from the [Government of Canada's Open Data website](http://open.canada.ca/en/open-data). Specifically, these two sources were used:
 - [Horses, number on farms at June 1 and at December 1](http://open.canada.ca/data/en/dataset/43b3a9b3-3842-45e7-8bc8-c4c27b9462ab)
 - [Horses, number on farms at June 1, farm value per head and total farm value](http://open.canada.ca/data/en/dataset/b374f60b-9580-44dc-83f6-c0a850c15f30)
-
 ## Methods
-
-Next we look at the range of the number horses for each provinces at any time point between 1940 - 1972:
-
-```{r max horse table}
-max_horses <- horse_pop %>% 
-  select(GEO, Value) %>% 
-  rename(Province = GEO) %>% 
-  group_by(Province) %>% 
-  summarize(Maximum = max(Value),
-            Minimum = min(Value))
-max_horses
-kable(max_horses, 
-      caption = "Table 1. Maximum and minimum number of horses for each province between 1940 - 1972")
-```
-
+The R programming language and the following R packages were used to perform the analysis: knitr and tidyverse. The code used to perform the analysis and create this report can be found here: https://github.com/ttimbers/equine_numbers_value_canada_rmd.
 ## Results
 ```{r plot horses, fig.width=10, fig.height=3, fig.cap="Figure 1. Horse populations in all Canadian provinces between 1940 and 1972.", out.width="100%"}
 horse_plot <- ggplot(horse_pop, aes(x = Ref_Date, y = Value)) +
@@ -76,7 +61,8 @@ kable(max_horses,
       caption = "Table 1. Maximum and minimum number of horses for each province between 1940 - 1972")
 ```
 
-Below we zoom in and look at the province of Alberta:
+Below we zoom in and look at the province of `r max_horses$Province[1]`:
+
 ```{r plot province, fig.width=5, fig.height=4}
 province_plot <- horse_pop %>% 
   filter(GEO == "Alberta") %>% 
