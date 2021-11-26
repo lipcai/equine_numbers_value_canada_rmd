@@ -2,7 +2,7 @@
 title: "Historical horse population in Canada"
 bibliography: references.bib
 params:
-    province: "British Columbia"
+    province: "Alberta"
 output: 
    html_document:
         toc: true
@@ -20,6 +20,7 @@ library(knitr)
 
 ## Aim
 This project explores the historical population of horses in Canada between 1906 and 1972 for each Province.
+
 ## Data
 ```{r load data, include = FALSE}
 horse_pop <- read_csv("../data/00030067-eng.csv")
@@ -63,8 +64,7 @@ kable(max_horses,
       caption = "Table 1. Maximum and minimum number of horses for each province between 1940 - 1972")
 ```
 
-Below we zoom in and look at the province of `r max_horses$Province[1]`:
-
+Below we zoom in and look at the province of `r params$province`:
 ```{r plot province, fig.width=5, fig.height=4}
 province_plot <- horse_pop %>% 
   filter(GEO == "Alberta") %>% 
@@ -80,5 +80,6 @@ province_plot <- horse_pop %>%
 province_plot
 ```
 
+Figure 2. Horse populations for `r params$province` between 1940 - 1972.
 
 # References
